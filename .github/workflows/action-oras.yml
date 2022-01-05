@@ -6,6 +6,6 @@ jobs:
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "run the script..."
-      - run: sh ../../run.sh
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: sh ${{ github.workspace }}/run.sh
+      - run: echo "🍏 This job's status is ${{ job.status }}." 
 
