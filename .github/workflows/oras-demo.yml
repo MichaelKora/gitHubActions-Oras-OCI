@@ -26,7 +26,7 @@ jobs:
 
       -
         name: Login to GitHub Container Registry
-        uses: ./
+        uses: actions/checkout@v1
         with:
           registry: ghcr.io
           username: ${{ env.GITHUB_OWNER }}
