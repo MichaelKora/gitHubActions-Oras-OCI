@@ -20,5 +20,5 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: oras push ghcr.io/MichaelKora/ ./*
+      - run: oras push ghcr.io/MichaelKora/${ GITHUB_OWNER } ./*
       - run: echo "🍏 The current s    tatus is ${{ job.status }}."
