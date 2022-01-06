@@ -5,11 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: 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
+      GITHUB_USR: ${{ github.actor }} 
     steps:
       - name: "echo"
-        run: echo $GITHUB_PAT
+        run: echo "$GITHUB_PAT"
       - name: "Loging"
-        run: echo $GITHUB_PAT | oras login https://ghcr.io -u MichaelKora --password-stdin
+        run: echo "$GITHUB_PAT" | oras login https://ghcr.io -u "$GITHUB_USR" --password-stdin
       - name: "Pushing"
         run: oras push ghcr.io/${GITHUB_OWNER}/samples/artifact:1.0 ../../conda-forge_xtensor_files/* 
       - name: "Check current status"
