@@ -24,5 +24,5 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }} ./*
+      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }} ./*.bz2
       - run: echo "🍏 The current status is ${{ job.status }}."
