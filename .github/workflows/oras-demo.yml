@@ -1,0 +1,17 @@
+name: Create Oras event after each git push
+
+on: [ push ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create_oras_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: oras push ghcr.io/${GITHUB_OWNER}/samples/artifact:1.0 ../../conda-forge_xtensor_files/*
+      - run: echo "🍏 The current s    tatus is ${{ job.status }}."
