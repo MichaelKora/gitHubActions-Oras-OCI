@@ -12,7 +12,7 @@ defaults:
 
 jobs:
   create_oras_push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04 
     env:
       GITHUB_OWNER: ${{ github.actor }} 
     steps:
@@ -24,4 +24,4 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - run: oras push ghcr.io/${ GITHUB_OWNER } ./*
-      - run: echo "🍏 The current s    tatus is ${{ job.status }}."
+      - run: echo "🍏 The current status is ${{ job.status }}."
