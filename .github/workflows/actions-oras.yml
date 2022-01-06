@@ -1,3 +1,5 @@
+name: GitHub Actions + Oras 
+on: [push]
 jobs:
   Use-Oras:
     runs-on: ubuntu-latest
