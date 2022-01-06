@@ -19,5 +19,8 @@ jobs:
       - uses: actions/labeler@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: oras push ghcr.io/$GITHUB_OWNER/ ./*
+
+      - run: echo "ghcr.io/$GITHUB_OWNER}/"
+
+      - run: oras push ghcr.io/$GITHUB_OWNER}/ ./*
       - run: echo "🍏 The current s    tatus is ${{ job.status }}."
