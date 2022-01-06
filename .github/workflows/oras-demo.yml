@@ -13,8 +13,6 @@ defaults:
 jobs:
   create_oras_push:
     runs-on: ubuntu-18.04 
-    env:
-      GITHUB_OWNER: ${{ github.actor }} 
     steps:
       - run: wget https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_arm64.tar.gz
       - run: tar -xvf oras_0.12.0_linux_arm64.tar.gz
