@@ -4,7 +4,6 @@ jobs:
   Use-Oras:
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: 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
       GITHUB_USR: ${{ github.actor }} 
     steps:
       - name: "echo"
