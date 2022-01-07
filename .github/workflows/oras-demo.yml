@@ -26,57 +26,11 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-
-#      -
-#        name: Login to GitHub Container Registry
-#        uses: actions/checkout@v1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ env.GITHUB_OWNER }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#          logout: false
-
-
       - run: |
          echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
+         sh ../test.sh
+#         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
 
 #      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
       - run: echo "🍏 The current status is ${{ job.status }}."
 
-
-
-#on: [ push ]
-
-#permissions:
-#  contents: read
-#  pull-requests: write
-#
-#defaults:
-#  run:
-#    working-directory: conda-forge_xtensor_files
-#
-#jobs:
-#  create_oras_push:
-#    runs-on: ubuntu-latest 
-#    env:
-#      GITHUB_OWNER: ${{ github.actor }} 
-#    steps:
-#      - uses: actions/checkout@v2
-#      - run: wget https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_arm64.tar.gz
-#      - run: tar -xvf oras_0.12.0_linux_arm64.tar.gz
-#
-#      - uses: actions/labeler@v2
-#        with:
-#          repo-token: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - run: |
-#	  echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-#	  oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
-##      - run: |
-##              echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-##              oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
-##      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }} ./*.bz2
-##      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/vnd.unknown.layer.v1+bz2
-#      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
-#      - run: echo "🍏 The current status is ${{ job.status }}."
