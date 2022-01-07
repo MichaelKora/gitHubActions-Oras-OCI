@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#  #!/usr/bin/env bash
+#!/bin/bash
 my_array=($( ls ./*.bz2 ) )
 
 for i in "${my_array[@]}"
