@@ -28,15 +28,15 @@ jobs:
 
       - run: |
          echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-         chmod +x ../upload-files.sh
-         bash ../upload-files.sh
+         #chmod +x ../upload-files.sh
+         #bash ../upload-files.sh
 
-         #my_array= ( $( ls conda-forge_xtensor_files/*.bz2 ) )
-         #for i in "${my_array[@]}"
-         #do
-         #echo "$i"
-         #oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./$i:application/octet-stream
-         #done
+         my_array= ( $( ls ./*.bz2 ) )
+         for i in "${my_array[@]}"
+         do
+         echo "$i"
+         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 $i:application/octet-stream
+         done
 
 #         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
 
