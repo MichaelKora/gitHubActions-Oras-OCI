@@ -31,7 +31,7 @@ jobs:
          #chmod +x ../upload-files.sh
          #bash ../upload-files.sh
 
-         my_array= ( $( ls ./*.bz2 ) )
+         my_array=($( ls ./*.bz2 ) )
          for i in "${my_array[@]}"
          do
          echo "$i"
