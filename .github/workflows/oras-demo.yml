@@ -28,7 +28,7 @@ jobs:
 
       - run: |
          echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-         chmod +X ../test.sh
+         chmod +x ../upload-files.sh
          bash ../upload-files.sh
 
          #my_array= ( $( ls conda-forge_xtensor_files/*.bz2 ) )
