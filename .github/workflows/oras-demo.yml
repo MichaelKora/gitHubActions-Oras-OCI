@@ -34,12 +34,10 @@ jobs:
          my_array=($( ls ./*.bz2 ) )
          for i in "${my_array[@]}"
          do
-         echo "$i"
          oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 $i:application/octet-stream
          done
 
 #         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
-
 #      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
       - run: echo "🍏 The current status is ${{ job.status }}."
 
