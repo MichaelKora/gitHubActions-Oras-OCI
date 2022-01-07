@@ -1,5 +1,4 @@
 #!/bin/bash
-#my_array=($(ls -d */))
 my_array= ($(ls conda-forge_xtensor_files/*.bz2))
 
 for i in "${my_array[@]}"
