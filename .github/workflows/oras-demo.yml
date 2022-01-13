@@ -39,15 +39,5 @@ jobs:
         run: ./upload-files.sh ${{ env.GITHUB_OWNER }}
         shell: bash -l {0} 
 
-#      - run: |
-         #echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
-
-         #my_array=($( ls ./conda-forge_xtensor_files/*.bz2 ) )
-         #for i in "${my_array[@]}"
-         #do
-         #oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.1 ./$i:application/octet-stream
-         #done
-
       - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.1 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
       - run: echo "🍏 The current status is ${{ job.status }}."
-
