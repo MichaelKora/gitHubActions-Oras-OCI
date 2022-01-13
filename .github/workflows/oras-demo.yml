@@ -25,13 +25,13 @@ jobs:
           environment-file: my_env.yml
           micromamba-version: latest
 
-      - run: conda install conda-build
-      - run: wget https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_arm64.tar.gz
-      - run: tar -xvf oras_0.12.0_linux_arm64.tar.gz
+#      - run: conda install conda-build
+#      - run: wget https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_arm64.tar.gz
+#      - run: tar -xvf oras_0.12.0_linux_arm64.tar.gz
 
-      - uses: actions/labeler@v2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+#      - uses: actions/labeler@v2
+       # with:
+         # repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - run: chmod +x ./conda_index.sh
 
