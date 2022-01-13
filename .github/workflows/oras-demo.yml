@@ -10,7 +10,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: conda-forge_xtensor_files
+    working-directory: ./
 
 jobs:
   create_oras_push:
@@ -19,6 +19,18 @@ jobs:
       GITHUB_OWNER: ${{ github.actor }} 
     steps:
       - uses: actions/checkout@v2
+      - name: install mamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+        environment-file: my_env.yml
+        micromamba-version: latest
+
+      # linux and osx
+      - name: run python
+        shell: bash -l {0}
+        run: |
+          python -c "import numpy"
+
       - run: wget https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_arm64.tar.gz
       - run: tar -xvf oras_0.12.0_linux_arm64.tar.gz
 
@@ -26,18 +38,24 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: create repodata.json
+        run: ./conda_index.sh
+        shell: bash 
+
       - run: |
          echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
          #chmod +x ../upload-files.sh
          #bash ../upload-files.sh
 
-         my_array=($( ls ./*.bz2 ) )
+         my_array=($( ls ./conda-forge_xtensor_files/*.bz2 ) )
          for i in "${my_array[@]}"
          do
-         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 $i:application/octet-stream
+         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./conda-forge_xtensor_files/$i:application/octet-stream
          done
 
 #         oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
 #      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./xtensor-0.24.0-hd62202e_0.tar.bz2:application/octet-stream
+
+      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.0 ./temp_dir/noarch/repodata.json:application/octet-stream
       - run: echo "🍏 The current status is ${{ job.status }}."
 
