@@ -6,6 +6,6 @@ dependencies:
   - pip
   - mamba
   - pytest
-  - "conda-build>=3.20"
+  - conda-build
   - jsonschema
   - json5

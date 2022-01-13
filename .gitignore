@@ -1,0 +1,5 @@
+.my_env.yml.un~
+.conda_index.sh.un
+.upload-files.sh.un~
+./.conda_index.sh.un~ ./.my_env.yml.un~ ./.upload-files.sh.un~
+.github/.DS_Store
