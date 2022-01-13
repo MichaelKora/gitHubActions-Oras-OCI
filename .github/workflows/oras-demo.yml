@@ -25,7 +25,9 @@ jobs:
           environment-file: my_env.yml
           micromamba-version: latest
 
-      - run: chmod +x ./conda_index.sh
+      - run: |
+         chmod +x ./conda_index.sh
+         chmod +x ./upload-files.sh
 
       - name: create repodata.json
         run: ./conda_index.sh
