@@ -22,8 +22,8 @@ jobs:
       - name: install mamba
         uses: mamba-org/provision-with-micromamba@main
         with:
-        environment-file: my_env.yml
-        micromamba-version: latest
+          environment-file: my_env.yml
+          micromamba-version: latest
 
       # linux and osx
       - name: run python
