@@ -32,6 +32,8 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - run:chmod +x ./conda_index.sh
+
       - name: create repodata.json
         run: ./conda_index.sh
         shell: bash 
