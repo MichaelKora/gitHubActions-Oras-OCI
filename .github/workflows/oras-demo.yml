@@ -24,6 +24,7 @@ jobs:
         with:
           environment-file: my_env.yml
           micromamba-version: latest
+conda install conda-build
 
 #      - run: |
          #chmod +x ./conda_index.sh
