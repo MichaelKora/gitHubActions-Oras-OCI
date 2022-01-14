@@ -68,13 +68,13 @@ for entry in input_data:
 
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
         upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
-        print(f"Uploading {pkg} file to {upload_url}")
+        logging.warning(f"Uploading {pkg} file to {upload_url}")
 
         subprocess.run(push_bz2, shell=True)
 
             #json oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
         push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
-        print(f"Uploading repodata.json to {upload_url}")
+        logging.warning(f"Uploading repodata.json to {upload_url}")
 
         subprocess.run(push_json, shell=True)
 
