@@ -16,7 +16,7 @@ owner = sys.argv[1]
 chanel = ""
 subdir = ""
 pkgname = ""
-
+oldLink = ""
 last_link = ""
 with open("input_file.json", "r") as read_file:
     input_data = json.load(read_file)
