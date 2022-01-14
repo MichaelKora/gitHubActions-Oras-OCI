@@ -33,7 +33,7 @@ for entry in input_data:
 
     pkgname = entry ["package"]
 
-    found_packages = findPackages[pkgname]
+    found_packages = findPackages(pkgname)
 
     #download every found packages (tar.bz2 files)
     for pkg in found_packages:
