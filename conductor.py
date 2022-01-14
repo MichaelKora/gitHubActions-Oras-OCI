@@ -2,7 +2,6 @@ import json
 import urllib.request
 import sys
 import subprocess
-import os
 
 import urllib.request
 from functions import *
@@ -43,7 +42,7 @@ for entry in input_data:
 
         #run conda script to move the tar.bz2 file in the proper place
         #and then run the "conda index" to produce the repodata.json
-        os.system('chmod +x ./conda_index.sh')
+        subprocess.run("chmod +x ./conda_index.sh", shell=True )
         subprocess.run("./conda_index.sh", shell=True)
 
         # change the name and adapt the tag
@@ -70,9 +69,7 @@ for entry in input_data:
         push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
         subprocess.run(push_json, shell=True)
 
-            #os.system('chmod +x ./conda_index.sh')
-
 
         # delete bz2 and temp_dir
-        os.system('chmod +x ./deletefiles.sh')
+        subprocess.run("chmod +x ./deletefiles.sh", shell=True)
         subprocess.run("./deletefiles.sh", shell=True)

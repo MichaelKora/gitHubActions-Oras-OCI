@@ -36,7 +36,10 @@ jobs:
 #login into oci repo
       - run: echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
 
-      - run: python ./conductor.py ${{ env.GITHUB_OWNER }}
+      - name: run the python script
+        run: python ./conductor.py ${{ env.GITHUB_OWNER }}
+        shell: bash -l {0}
+
 #      - name: upload all tar.bz2 files
         #run: ./upload-files.sh ${{ env.GITHUB_OWNER }}
         #shell: bash -l {0}
