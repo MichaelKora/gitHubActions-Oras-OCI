@@ -50,7 +50,7 @@ for entry in input_data:
 
         # change the name and adapt the tag
         len_pkg = len (pkgname)
-        tag = pkg[len_pkg: ]
+        tag = pkg[len_pkg+1: ]
 
         logging.warning(f"Tag is {tag}")
 
