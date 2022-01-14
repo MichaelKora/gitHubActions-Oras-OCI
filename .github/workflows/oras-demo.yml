@@ -26,32 +26,10 @@ jobs:
           environment-file: my_env.yml
           micromamba-version: latest
 
-#      - name: setup python
-        #uses: actions/setup-python@v2
-        #with:
-          #python-version: '3.7.7' # install the python version needed
-#
-#      - run: |
-         #chmod +x ./conda_index.sh
-         #chmod +x ./upload-files.sh
-
-#      - name: create repodata.json
-        #run: ./conda_index.sh
-        #shell: bash -l {0}
-
       - name: log in into oci repo & run the python script
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
           python ./conductor.py ${{ env.GITHUB_OWNER }}
         shell: bash -l {0}
 
-#      - name: run the python script
-        #run: python ./conductor.py ${{ env.GITHUB_OWNER }}
-        #shell: bash -l {0}
-
-#      - name: upload all tar.bz2 files
-        #run: ./upload-files.sh ${{ env.GITHUB_OWNER }}
-        #shell: bash -l {0}
-
-#      - run: oras push ghcr.io/${{ env.GITHUB_OWNER }}/samples/xtensor:1.1 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
       - run: echo "🍏 The current status is ${{ job.status }}."

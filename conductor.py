@@ -7,12 +7,8 @@ import logging
 import urllib.request
 from functions import *
 
-#github variables
+#argument: github Owner 
 owner = sys.argv[1]
-#tocken = sys.argv[1]
-
-#https://conda.anaconda.org/robostack-experimental/linux-aarch64/repodata.json
-#https://conda.anaconda.org/$CHANNEL/$SUBDIR/repodata.json
 
 chanel = ""
 subdir = ""
@@ -52,8 +48,6 @@ for entry in input_data:
         len_pkg = len (pkgname)
         tag = pkg[len_pkg: ]
 
-        logging.warning(f"Tag is {tag}")
-
         extension = ".tar.bz2"
         len_extsn = len (extension)
 
@@ -62,21 +56,20 @@ for entry in input_data:
 
         #replace all "_" with "-"
         tag_resized = tag_resized.replace("_", "-")
-
+        logging.warning(f"The current tag is: <<{tag_resized}>>")
 
         # upload the files(bz2 and the repodata) to the subdir and tag
 
-            #bz2: oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream
-
+            #bz2:
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
         upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
-        logging.warning(f"Uploading {pkg} to {upload_url}")
+        logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
 
         subprocess.run(push_bz2, shell=True)
 
-            #json oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
+            #json
         push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
-        logging.warning(f"Uploading repodata.json to {upload_url}")
+        logging.warning(f"Uploading repodata.json to <<{upload_url}>>")
 
         subprocess.run(push_json, shell=True)
 
