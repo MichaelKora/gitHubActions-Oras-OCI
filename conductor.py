@@ -7,7 +7,7 @@ import urllib.request
 from functions import *
 
 #github variables
-owner = sys.argv[1]
+owner = sys.argv[0]
 #tocken = sys.argv[1]
 
 #https://conda.anaconda.org/robostack-experimental/linux-aarch64/repodata.json
