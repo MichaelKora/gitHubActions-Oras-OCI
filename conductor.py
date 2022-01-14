@@ -28,7 +28,7 @@ for entry in input_data:
     chanel = entry["chanel"]
     subdir = entry["subdir"]
 
-    newLink = "https://conda.anaconda.org/" + chanel + "/" + subdir + "repodata.json"
+    newLink = f"https://conda.anaconda.org/{chanel}/{subdir}/repodata.json"
     oldLink = downloadFile(oldLink, newLink)
 
     pkgname = entry ["package"]
