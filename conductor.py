@@ -4,7 +4,7 @@ import sys
 import subprocess
 
 import urllib.request
-from functions.py import *
+from functions import *
 
 #github variables
 owner = sys.argv[1]
