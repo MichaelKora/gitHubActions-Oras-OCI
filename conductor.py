@@ -29,11 +29,11 @@ for entry in input_data:
     subdir = entry["subdir"]
 
     newLink = f"https://conda.anaconda.org/{chanel}/{subdir}/repodata.json"
-    oldLink = downloadFile(oldLink, newLink)
+    downloaded_repodata = downloadFile(oldLink, newLink)
 
     pkgname = entry ["package"]
 
-    found_packages = findPackages(pkgname)
+    found_packages = findPackages(downloaded_repodata, pkgname)
 
     #download every found packages (tar.bz2 files)
     for pkg in found_packages:

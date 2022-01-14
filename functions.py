@@ -11,6 +11,7 @@ def downloadFile (oldLink, newLink):
             json.dump(somedata, write_file)
 
     oldLink = newLink
+    return somedata
 
 
 #this funtion copie all the packages matching with the given package name from the repodata
