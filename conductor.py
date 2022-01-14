@@ -7,8 +7,6 @@ import os
 import urllib.request
 from functions import *
 
-os.system('conda install conda-build')
-
 #github variables
 owner = sys.argv[1]
 #tocken = sys.argv[1]
