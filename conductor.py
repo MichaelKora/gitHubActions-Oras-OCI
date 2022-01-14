@@ -58,7 +58,7 @@ for entry in input_data:
         len_extsn = len (extension)
 
         len_tag= len(tag) - len_extsn
-        tag_resized = tag [:len_tag]
+        tag_resized = tag [1:len_tag]
 
         #replace all "_" with "-"
         tag_resized = tag_resized.replace("_", "-")
