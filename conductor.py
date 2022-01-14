@@ -2,6 +2,7 @@ import json
 import urllib.request
 import sys
 import subprocess
+import logging
 
 import urllib.request
 from functions import *
@@ -38,7 +39,7 @@ for entry in input_data:
     #download every found packages (tar.bz2 files)
     for pkg in found_packages:
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
-
+        logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
 
         urllib.request.urlretrieve(pkgLink, filename=pkg)
 
@@ -64,11 +65,17 @@ for entry in input_data:
         # upload the files(bz2 and the repodata) to the subdir and tag
 
             #bz2: oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream
+
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
+        upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
+        print(f"Uploading {pkg} file to {upload_url}")
+
         subprocess.run(push_bz2, shell=True)
 
             #json oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
         push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+        print(f"Uploading repodata.json to {upload_url}")
+
         subprocess.run(push_json, shell=True)
 
 
