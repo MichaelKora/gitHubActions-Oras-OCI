@@ -5,7 +5,7 @@ import urllib.request
 def downloadFile (oldLink, newLink):
     if newLink != oldLink:
         with urllib.request.urlopen(newLink) as url:
-            data = json.loads(url.read().decode())
+            somedata = json.loads(url.read().decode())
 
         with open("repodata.json", "w") as write_file:
             json.dump(somedata, write_file)
