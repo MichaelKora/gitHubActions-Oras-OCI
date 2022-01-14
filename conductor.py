@@ -24,7 +24,7 @@ with open("input_file.json", "r") as read_file:
 
 
 #go through entire set of entries in the input_data.json file
-for entry in result:
+for entry in input_data:
     chanel = entry["chanel"]
     subdir = entry["subdir"]
 
