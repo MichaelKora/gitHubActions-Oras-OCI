@@ -1,3 +1,6 @@
+import json
+import urllib.request
+
 #download the repodata.json file only if its a new one
 def downloadFile (oldLink, newLink):
     if newLink != oldLink:
