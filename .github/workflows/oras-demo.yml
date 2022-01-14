@@ -19,11 +19,17 @@ jobs:
       GITHUB_OWNER: ${{ github.actor }}
     steps:
       - uses: actions/checkout@v2
+
       - name: install mamba
         uses: mamba-org/provision-with-micromamba@main
         with:
           environment-file: my_env.yml
           micromamba-version: latest
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7.7' # install the python version needed
 
 #      - run: |
          #chmod +x ./conda_index.sh
@@ -33,7 +39,7 @@ jobs:
         #run: ./conda_index.sh
         #shell: bash -l {0}
 
-      - name: log in into oci repo
+      - name: log in into oci repo & run the python script
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
           python ./conductor.py ${{ env.GITHUB_OWNER }}
