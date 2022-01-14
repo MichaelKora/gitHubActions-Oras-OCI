@@ -52,10 +52,12 @@ for entry in input_data:
         len_pkg = len (pkgname)
         tag = pkg[len_pkg: ]
 
+        logging.warning(f"Tag is {tag}")
+
         extension = ".tar.bz2"
         len_extsn = len (extension)
 
-        len_tag= len_pkg - len_extsn
+        len_tag= len(tag) - len_extsn
         tag_resized = tag [:len_tag]
 
         #replace all "_" with "-"
@@ -68,7 +70,7 @@ for entry in input_data:
 
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
         upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
-        logging.warning(f"Uploading {pkg} file to {upload_url}")
+        logging.warning(f"Uploading {pkg} to {upload_url}")
 
         subprocess.run(push_bz2, shell=True)
 
