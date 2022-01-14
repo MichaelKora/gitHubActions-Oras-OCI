@@ -37,7 +37,9 @@ for entry in input_data:
 
     #download every found packages (tar.bz2 files)
     for pkg in found_packages:
-        pkgLink = "https://conda.anaconda.org/" + chanel + "/" + subdir + pkg
+        pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
+
+
         urllib.request.urlretrieve(pkgLink, filename=pkg)
 
         #run conda script to move the tar.bz2 file in the proper place
