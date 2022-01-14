@@ -33,8 +33,9 @@ jobs:
         #run: ./conda_index.sh
         #shell: bash -l {0}
 
-#login into oci repo
-      - run: echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
+      - name: log in into oci repo
+        run: echo ${{ secrets.GITHUB_TOKEN }} | oras login https://ghcr.io -u ${{ env.GITHUB_OWNER }} --password-stdin
+        shell: bash -l {0}        
 
       - name: run the python script
         run: python ./conductor.py ${{ env.GITHUB_OWNER }}
