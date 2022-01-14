@@ -1,0 +1,90 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# /home/conda/recipe_root, last modified Mon May 24 11:53:11 2021
+# ------------------------------------------------
+
+package:
+  name: xtensor
+  version: 0.23.10
+source:
+  fn: xtensor-0.23.10.tar.gz
+  sha256: 2e770a6d636962eedc868fef4930b919e26efe783cd5d8732c11e14cf72d871c
+  url: https://github.com/xtensor-stack/xtensor/archive/0.23.10.tar.gz
+build:
+  number: '0'
+  string: h2acdbc0_0
+requirements:
+  build:
+    - _libgcc_mutex 0.1 conda_forge
+    - _openmp_mutex 4.5 1_gnu
+    - binutils_impl_linux-ppc64le 2.35.1 h5836da8_2
+    - binutils_linux-ppc64le 2.35 hcfcb53e_30
+    - bzip2 1.0.8 h4e0d66e_4
+    - c-ares 1.17.1 h4e0d66e_1
+    - ca-certificates 2020.12.5 h1084571_0
+    - cmake 3.20.2 hadba709_1
+    - expat 2.3.0 h3b9df90_0
+    - gcc_impl_linux-ppc64le 9.3.0 ha8fcf76_18
+    - gcc_linux-ppc64le 9.3.0 h2662597_30
+    - gxx_impl_linux-ppc64le 9.3.0 h6db6fac_18
+    - gxx_linux-ppc64le 9.3.0 hdc9eec7_30
+    - kernel-headers_linux-ppc64le 3.10.0 hbe0c576_10
+    - krb5 1.19.1 haf43566_0
+    - ld_impl_linux-ppc64le 2.35.1 ha35d02b_2
+    - libcurl 7.76.1 he415e40_2
+    - libedit 3.1.20191231 h41a240f_2
+    - libev 4.33 h6eb9509_1
+    - libgcc-devel_linux-ppc64le 9.3.0 h9f60fdd_18
+    - libgcc-ng 9.3.0 hc7a5eb4_18
+    - libgomp 9.3.0 hc7a5eb4_18
+    - libnghttp2 1.43.0 h42039ad_0
+    - libssh2 1.9.0 ha5a9321_6
+    - libstdcxx-devel_linux-ppc64le 9.3.0 h7901c9a_18
+    - libstdcxx-ng 9.3.0 h22bc1b8_18
+    - libuv 1.41.0 h4e0d66e_0
+    - lz4-c 1.9.3 h3b9df90_0
+    - make 4.3 hf817498_1
+    - ncurses 6.2 hea85c5d_4
+    - openssl 1.1.1k h4e0d66e_0
+    - rhash 1.4.1 h4e0d66e_0
+    - sysroot_linux-ppc64le 2.17 h8b29623_10
+    - tk 8.6.10 h38e1d09_1
+    - xz 5.2.5 h6eb9509_1
+    - zlib 1.2.11 h6eb9509_1010
+    - zstd 1.5.0 h65c4b1a_0
+  host:
+    - _libgcc_mutex 0.1 conda_forge
+    - _openmp_mutex 4.5 1_gnu
+    - libgcc-ng 9.3.0 hc7a5eb4_18
+    - libgomp 9.3.0 hc7a5eb4_18
+    - libstdcxx-ng 9.3.0 h22bc1b8_18
+    - xtl 0.7.2 h2acdbc0_1
+  run:
+    - libgcc-ng >=9.3.0
+    - libstdcxx-ng >=9.3.0
+    - xtl >=0.7,<0.8
+  run_constrained:
+    - xsimd >=7.4.8,<8
+test:
+  commands:
+    - test -d ${PREFIX}/include/xtensor
+    - test -f ${PREFIX}/include/xtensor/xarray.hpp
+    - test -f ${PREFIX}/lib/cmake/xtensor/xtensorConfig.cmake
+    - test -f ${PREFIX}/lib/cmake/xtensor/xtensorConfigVersion.cmake
+about:
+  description: Multi dimensional arrays with broadcasting and lazy computing
+  dev_url: https://github.com/xtensor-stack/xtensor
+  doc_url: https://xtensor.readthedocs.io
+  home: https://github.com/xtensor-stack/xtensor
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: The C++ tensor algebra library
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - JohanMabille
+    - SylvainCorlay
+    - davidbrochart
+    - wolfv

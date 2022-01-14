@@ -1,0 +1,20 @@
+{
+  "arch": "ppc64le",
+  "build": "h2acdbc0_0",
+  "build_number": 0,
+  "constrains": [
+    "xsimd >=7.4.8,<8"
+  ],
+  "depends": [
+    "libgcc-ng >=9.3.0",
+    "libstdcxx-ng >=9.3.0",
+    "xtl >=0.7,<0.8"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "name": "xtensor",
+  "platform": "linux",
+  "subdir": "linux-ppc64le",
+  "timestamp": 1621857513346,
+  "version": "0.23.10"
+}

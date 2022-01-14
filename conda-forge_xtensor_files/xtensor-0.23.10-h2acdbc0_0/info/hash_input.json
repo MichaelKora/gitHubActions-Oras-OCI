@@ -1,0 +1,6 @@
+{
+  "target_platform": "linux-ppc64le",
+  "cxx_compiler_version": "9",
+  "cxx_compiler": "gxx",
+  "channel_targets": "conda-forge main"
+}

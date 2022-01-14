@@ -1,0 +1,7 @@
+[
+    {
+        "chanel": "robostack-experimental",
+        "subdir": "linux-aarch64",
+        "package": "ros-galactic-launch"
+    }
+]

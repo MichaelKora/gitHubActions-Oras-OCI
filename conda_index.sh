@@ -1,6 +1,14 @@
 #!/bin/bash
+
 mkdir temp_dir
+
 conda index temp_dir
-ls -al ./temp_dir
-cp conda-forge_xtensor_files/*.bz2 ./temp_dir/noarch
+
+#cp $pkg ./temp_dir/noarch
+
+cp ./*.bz2 ./temp_dir/noarch
+
+
+#cp conda-forge_xtensor_files*.bz2 ./temp_dir/noarch
+
 conda index temp_dir
