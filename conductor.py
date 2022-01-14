@@ -66,10 +66,12 @@ for entry in input_data:
             #bz2: oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
         subprocess.run(push_bz2, shell=True)
+        subprocess.check_output
 
             #json oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
         push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
         subprocess.run(push_json, shell=True)
+        subprocess.check_output
 
 
         # delete bz2 and temp_dir
