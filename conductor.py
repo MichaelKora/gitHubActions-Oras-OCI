@@ -7,7 +7,7 @@ import logging
 import urllib.request
 from functions import *
 
-#argument: github Owner 
+#argument: github Owner
 owner = sys.argv[1]
 
 chanel = ""
@@ -61,14 +61,20 @@ for entry in input_data:
         # upload the files(bz2 and the repodata) to the subdir and tag
 
             #bz2:
-        push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
-        upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
+        #push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
+        push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized} ./{pkg}:application/octet-stream"
+
+        #upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
+        upload_url = f"ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized}"
+
         logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
 
         subprocess.run(push_bz2, shell=True)
 
             #json
-        push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+        #push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+        push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+
         logging.warning(f"Uploading repodata.json to <<{upload_url}>>")
 
         subprocess.run(push_json, shell=True)
@@ -77,3 +83,10 @@ for entry in input_data:
         # delete bz2 and temp_dir
         subprocess.run("chmod +x ./deletefiles.sh", shell=True)
         subprocess.run("./deletefiles.sh", shell=True)
+
+
+#/<name>/<arch>/repodata.json
+#und /<name>/<arch>/<package>
+#<name> -> irgendein Name
+#<arch> -> linux-64, osx-64, win-64, noarch
+#und <package> wäre jetzt z.b. xtensor-0.20.4-h1231312.tar.bz2
