@@ -61,12 +61,12 @@ for entry in input_data:
 #        extension = ".tar.bz2"
 
 
-        len_tag= len(tag) - len (".tar.bz2")
-        tag_resized = tag [:len_tag]
-
-        #replace all "_" with "-"
+#len_tag= len(tag) - len (".tar.bz2")
+#tag_resized = tag [:len_tag]
+        # delete the ".tar.b2" part and replace all "_" with "-"
+        tag_resized = tag.rpartition('.tar')[0])
         tag_resized = tag_resized.replace("_", "-")
-        
+
         logging.warning(f"The current Pkg name is: <<{name}>>")
         logging.warning(f"The current tag is: <<{tag_resized}>>")
 
