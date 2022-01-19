@@ -66,7 +66,7 @@ for entry in input_data:
 
         # upload the tar_bz2 file to the right url
         push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}{pkgname}/:{tag_resized} ./{pkg}:application/octet-stream"
-        upload_url = f"ghcr.io/{owner}/samples/{subdir}{pkgname}/:{tag_resized}"
+        upload_url = f"ghcr.io/{owner}/samples/{subdir}/{pkgname}/:{tag_resized}"
         logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
         subprocess.run(push_bz2, shell=True)
         logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
