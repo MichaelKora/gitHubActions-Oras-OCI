@@ -54,7 +54,7 @@ for entry in input_data:
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
         if (os.path.isdir(f"./temp_dir/{subdir}") == False):
-            subprocess.run(f"mkdir ./temp_dir{subdir}", shell=True)
+            subprocess.run(f"mkdir ./temp_dir/{subdir}", shell=True)
         urllib.request.urlretrieve(pkgLink, f"./temp_dir/{subdir}/{pkg}")
 #        urllib.request.urlretrieve(pkgLink, filename=pkg)
 
