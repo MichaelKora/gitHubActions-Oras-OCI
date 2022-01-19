@@ -64,7 +64,7 @@ for entry in input_data:
 #len_tag= len(tag) - len (".tar.bz2")
 #tag_resized = tag [:len_tag]
         # delete the ".tar.b2" part and replace all "_" with "-"
-        tag_resized = tag.rpartition('.tar')[0])
+        tag_resized = tag.rpartition('.tar')[0]
         tag_resized = tag_resized.replace("_", "-")
 
         logging.warning(f"The current Pkg name is: <<{name}>>")
@@ -82,7 +82,7 @@ for entry in input_data:
 
     #upload the repodata.json file to the right url
     json_url = f"ghcr.io/{owner}/samples/{subdir}:1.0"
-    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}:1.0 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}/repodata.json:1.0 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
     logging.warning(f"Uploading repodata.json to <<{json_url}>>")
     subprocess.run(push_json, shell=True)
     logging.warning(f"File repodata.json upload to: <<{json_url}>>")
