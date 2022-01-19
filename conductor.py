@@ -76,7 +76,7 @@ for entry in input_data:
 
     #upload the repodata.json file to the right url
     json_url = f"ghcr.io/{owner}/samples/{subdir}"
-    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}/ ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+    push_json = f"oras push ghcr.io/{owner}/samples/{subdir} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
     logging.warning(f"Uploading repodata.json to <<{json_url}>>")
     subprocess.run(push_json, shell=True)
     logging.warning(f"File repodata.json upload to: <<{json_url}>>")
