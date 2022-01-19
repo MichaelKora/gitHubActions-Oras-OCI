@@ -10,6 +10,15 @@ from functions import *
 #argument: github Owner
 owner = sys.argv[1]
 
+#shell script to create the needed file structure for conda_index
+subprocess.run("chmod +x ./prep_conda_index.sh", shell=True )
+
+#shell script that actually run the conda index command
+subprocess.run("chmod +x ./run_conda_index.sh", shell=True )
+
+#delete files after running it
+subprocess.run("chmod +x ./deletefiles.sh", shell=True)
+
 chanel = ""
 subdir = ""
 pkgname = ""
@@ -17,8 +26,6 @@ oldLink = ""
 last_link = ""
 with open("input_file.json", "r") as read_file:
     input_data = json.load(read_file)
-
-
 
 #go through entire set of entries in the input_data.json file
 for entry in input_data:
@@ -32,17 +39,16 @@ for entry in input_data:
 
     found_packages = findPackages(downloaded_repodata, pkgname)
 
-    #download every found packages (tar.bz2 files)
+    #run conda script to move the tar.bz2 file in the proper place
+    #and then run the "conda index" to produce the repodata.json
+    subprocess.run("./prep_conda_index.sh", shell=True)
+
+    #download every found packages (tar.bz2 files) of a specific subdir
     for pkg in found_packages:
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
 
         urllib.request.urlretrieve(pkgLink, filename=pkg)
-
-        #run conda script to move the tar.bz2 file in the proper place
-        #and then run the "conda index" to produce the repodata.json
-        subprocess.run("chmod +x ./conda_index.sh", shell=True )
-        subprocess.run("./conda_index.sh", shell=True)
 
         # change the name and adapt the tag
         len_pkg = len (pkgname)
@@ -58,31 +64,26 @@ for entry in input_data:
         tag_resized = tag_resized.replace("_", "-")
         logging.warning(f"The current tag is: <<{tag_resized}>>")
 
-        # upload the files(bz2 and the repodata) to the subdir and tag
-
-            #bz2:
-        #push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
-        push_bz2 = f"oras push ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized} ./{pkg}:application/octet-stream"
-
-        #upload_url = f"ghcr.io/{owner}/samples/{pkgname}:{tag_resized}"
-        upload_url = f"ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized}"
-
+        # upload the tar_bz2 file to the right url
+        push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}{pkgname}/:{tag_resized} ./{pkg}:application/octet-stream"
+        upload_url = f"ghcr.io/{owner}/samples/{subdir}{pkgname}/:{tag_resized}"
         logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
-
         subprocess.run(push_bz2, shell=True)
+        logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
 
-            #json
-        #push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
-        push_json = f"oras push ghcr.io/{owner}/samples/{pkgname}/{subdir}:{tag_resized} ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+    #run "conda index" to update the repodata.json file
+    subprocess.run("./run_conda_index.sh", shell=True)
 
-        logging.warning(f"Uploading repodata.json to <<{upload_url}>>")
+    #upload the repodata.json file to the right url
+    json_url = f"ghcr.io/{owner}/samples/{subdir}"
+    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}/ ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+    logging.warning(f"Uploading repodata.json to <<{json_url}>>")
+    subprocess.run(push_json, shell=True)
+    logging.warning(f"File repodata.json upload to: <<{json_url}>>")
 
-        subprocess.run(push_json, shell=True)
 
-
-        # delete bz2 and temp_dir
-        subprocess.run("chmod +x ./deletefiles.sh", shell=True)
-        subprocess.run("./deletefiles.sh", shell=True)
+    # delete bz2 and temp_dir
+    subprocess.run("./deletefiles.sh", shell=True)
 
 
 #/<name>/<arch>/repodata.json
