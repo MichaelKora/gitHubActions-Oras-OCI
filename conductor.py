@@ -51,22 +51,28 @@ for entry in input_data:
         urllib.request.urlretrieve(pkgLink, filename=pkg)
 
         # change the name and adapt the tag
-        len_pkg = len (pkgname)
-        tag = pkg[len_pkg: ]
+#        len_pkg = len (pkgname)
 
-        extension = ".tar.bz2"
-        len_extsn = len (extension)
+        name, version, hash = pkg.rsplit('-', 2)
+        tag = version + "-" + hash
 
-        len_tag= len(tag) - len_extsn
-        tag_resized = tag [1:len_tag]
+#        tag = pkg[len_pkg: ]
+
+#        extension = ".tar.bz2"
+
+
+        len_tag= len(tag) - len (".tar.bz2")
+        tag_resized = tag [:len_tag]
 
         #replace all "_" with "-"
         tag_resized = tag_resized.replace("_", "-")
+        
+        logging.warning(f"The current Pkg name is: <<{name}>>")
         logging.warning(f"The current tag is: <<{tag_resized}>>")
 
         # upload the tar_bz2 file to the right url
-        push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}/{pkgname}:{tag_resized} ./{pkg}:application/octet-stream"
-        upload_url = f"ghcr.io/{owner}/samples/{subdir}/{pkgname}:{tag_resized}"
+        push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}/{name}:{tag_resized} ./{pkg}:application/octet-stream"
+        upload_url = f"ghcr.io/{owner}/samples/{subdir}/{name}:{tag_resized}"
         logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
         subprocess.run(push_bz2, shell=True)
         logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
