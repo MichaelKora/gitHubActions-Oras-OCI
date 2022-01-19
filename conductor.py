@@ -75,8 +75,8 @@ for entry in input_data:
     subprocess.run("./run_conda_index.sh", shell=True)
 
     #upload the repodata.json file to the right url
-    json_url = f"ghcr.io/{owner}/samples/{subdir}/"
-    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}/ ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
+    json_url = f"ghcr.io/{owner}/samples/{subdir}:1.0"
+    push_json = f"oras push ghcr.io/{owner}/samples/{subdir}:1.0 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
     logging.warning(f"Uploading repodata.json to <<{json_url}>>")
     subprocess.run(push_json, shell=True)
     logging.warning(f"File repodata.json upload to: <<{json_url}>>")
