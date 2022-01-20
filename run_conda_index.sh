@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "owner is $1"
 echo "tag is $2"
-owner = $1
-tag = $2
+#owner = $1
+#tag = $2
 cd ./temp_dir
 #loc = noarch
 #repo = repodata.json
@@ -10,19 +10,17 @@ cd ./temp_dir
 for subdir in *
 #e.g. subdir = "linux-aarch64"
 do
- conda index ./$subdir
- ls -al
- ls -al ./$subdir
+ conda index
 
- mv ./$subdir/*.bz2 ./$subdir/noarch
- conda index ./$subdir
+ #mv ./$subdir/*.bz2 ./$subdir/noarch
+ #conda index ./$subdir
 
- ls -al
- ls -al ./$subdir
- ls -al ./$Subdir/noarch
+ #ls -al
+ #ls -al ./$subdir
+ #ls -al ./$Subdir/noarch
 
- echo "uploading repodata <<./temp_dir/$subdir/noarch/repodata.json>> to ghcr.io/$owner/samples/$subdir/repodata.json:$tag"
- oras push ghcr.io/$owner/samples/$subdir/repodata.json:$tag ./$subdir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt
+ echo "uploading repodata <<./temp_dir/$subdir/repodata.json>> to ghcr.io/$1/samples/$subdir/repodata.json:$2"
+ oras push ghcr.io/$1/samples/$subdir/repodata.json:$2 ./$subdir/repodata.json:application/vnd.unknown.layer.v1+txt
  echo "repo data of $subdir uploaded"
 done
 
