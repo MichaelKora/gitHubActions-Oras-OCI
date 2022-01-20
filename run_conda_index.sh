@@ -7,20 +7,18 @@ cd ./temp_dir
 #loc = noarch
 #repo = repodata.json
 conda index
+echo "ls -al"
+ls -al
 
 for subdir in *
 #e.g. subdir = "linux-aarch64"
 do
  #mv ./$subdir/*.bz2 ./$subdir/noarch
  #conda index ./$subdir
- echo "ls -al"
- ls -al
 
  echo "ls -al ./$subdir"
  ls -al ./$subdir
 
- echo "cating repodata.json"
- cat repodata.json
  echo "cating ./$subdir/repodata.json"
  cat ./$subdir/repodata.json
  #ls -al ./$Subdir/noarch
