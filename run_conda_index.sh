@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "owner is $1"
+echo "tag is $2"
 owner = $1
 tag = $2
 cd ./temp_dir
