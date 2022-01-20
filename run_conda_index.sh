@@ -4,10 +4,13 @@ echo "tag is $2"
 #owner = $1
 #tag = $2
 cd ./temp_dir
-#loc = noarch
-#repo = repodata.json
+
+echo "ls -al ./temp_dir before running conda index"
+la -al
+
 conda index
-echo "ls -al"
+
+echo "ls -al ./temp_dir after running conda index"
 ls -al
 
 for subdir in *
@@ -15,7 +18,8 @@ for subdir in *
 do
  #mv ./$subdir/*.bz2 ./$subdir/noarch
  #conda index ./$subdir
-    if [ -d "$subdir" ]; then
+    if [ -d "$subdir" ] && test -f "$subdir"
+    then
         # $f is a directory
         echo "ls -al ./$subdir"
         ls -al ./$subdir
