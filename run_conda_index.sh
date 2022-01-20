@@ -15,7 +15,7 @@ for subdir in *
 do
  #mv ./$subdir/*.bz2 ./$subdir/noarch
  #conda index ./$subdir
-    if [ -d "$f" ]; then
+    if [ -d "$subdir" ]; then
         # $f is a directory
         echo "ls -al ./$subdir"
         ls -al ./$subdir
