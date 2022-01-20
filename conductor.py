@@ -16,7 +16,7 @@ owner = sys.argv[1]
 subprocess.run("chmod +x ./conda_index_create.sh", shell=True )
 
 #delete files after running it
-subprocess.run("chmod +x ./deletefiles.sh", shell=True)
+subprocess.run("chmod +x ./run_conda_index.sh", shell=True)
 
 chanel = ""
 subdir = ""
