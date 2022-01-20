@@ -3,8 +3,8 @@ echo "owner is $1"
 echo "tag is $2"
 #owner = $1
 #tag = $2
-cd ./temp_dir
-garbage = "noarch"
+#cd ./temp_dir
+garbage =
 echo "ls -al ./temp_dir before running conda index"
 ls -al
 
@@ -21,7 +21,7 @@ do
     if [ -d "$subdir" ] && test -f "$subdir/repodata.json"
     then
         # $f is a directory
-        if [ $subdir ==  $garbage ] && [ $3 == "no" ]
+        if [ "$subdir" == "noarch" ] && [ "$3" == "no" ]
         then
             echo "noarch not downloaded"
             continue
