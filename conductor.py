@@ -40,23 +40,16 @@ for entry in input_data:
 
     found_packages = findPackages(downloaded_repodata, pkgname)
 
-    #run conda script to move the tar.bz2 file in the proper place
-    #and then run the "conda index" to produce the repodata.json
-#2    if (print (os.path.isdir(f"temp_dir/{subdir}")) == True):
-#2       subprocess.run(f"./conda_index_create.sh {subdir}", shell=True)
-
 
     for pkg in found_packages:
         #donwload package
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
         if (os.path.isdir(f"./temp_dir/{subdir}") == False):
-
             logging.warning(f"Subdir <<{subdir}>> does not exist...Creating a new subdir in filesystem...>>")
             subprocess.run(f"mkdir ./temp_dir/{subdir}", shell=True)
             list_of_dirs.append(subdir)
         urllib.request.urlretrieve(pkgLink, f"./temp_dir/{subdir}/{pkg}")
-#        urllib.request.urlretrieve(pkgLink, filename=pkg)
 
         #get name, version and hash (tag = version + hash(without .tar.bz2 extension))
         name, version, hash = pkg.rsplit('-', 2)
@@ -74,19 +67,7 @@ for entry in input_data:
         subprocess.run(push_bz2, shell=True)
         logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
 
-    #run "conda index" to update the repodata.json file
-    #subprocess.run("./run_conda_index.sh", shell=True)
-
-    #upload the repodata.json file to the right url
-#json_url = f"ghcr.io/{owner}/samples/{subdir}:1.0"
-#push_json = f"oras push ghcr.io/{owner}/samples/{subdir}/repodata.json:1.0 ./temp_dir/noarch/repodata.json:application/vnd.unknown.layer.v1+txt"
 logging.warning(f"Uploading all repodata.json files to...")
-#subprocess.run(push_json, shell=True)
-
-now = datetime.now()
-
-#shell script that actually run the conda index command
-#subprocess.run("chmod +x ./run_conda_index.sh", shell=True )
 
 noarch_needed = "no"
 if 'noarch' in list_of_dirs :
@@ -95,7 +76,7 @@ if 'noarch' in list_of_dirs :
 
 #json_tag=""
 now = datetime.now()
-json_tag = now.strftime("%d.%m.%Y-%H.%M.%S")
+json_tag = now.strftime("%d%m%Y%H%M%S")
 subprocess.run(f"./run_conda_index.sh {owner} {json_tag} {noarch_needed}", shell=True)
 
 logging.warning(f" All repodata.json files uploaded !!!>>")

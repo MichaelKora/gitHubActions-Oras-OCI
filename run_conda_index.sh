@@ -1,26 +1,23 @@
 #!/bin/bash
-echo "owner is $1"
-echo "tag is $2"
+
 #owner = $1
 #tag = $2
+#noarch_needed = $3
+
 cd ./temp_dir
-#garbage =
-echo "ls -al ./temp_dir before running conda index"
+echo "ls -al ./temp_dir before running <conda index>"
 ls -al
 
 conda index
 
-echo "ls -al ./temp_dir after running conda index"
+echo "ls -al ./temp_dir after running <conda index>"
 ls -al
 
 for subdir in *
-#e.g. subdir = "linux-aarch64"
 do
- #mv ./$subdir/*.bz2 ./$subdir/noarch
- #conda index ./$subdir
+
     if [ -d "$subdir" ] && test -f "$subdir/repodata.json"
     then
-        # $f is a directory
         if [ "$subdir" == "noarch" ] && [ "$3" == "no" ]
         then
             echo "noarch not downloaded"
@@ -36,7 +33,6 @@ do
         echo "repo data of $subdir uploaded"
 
     fi
- #ls -al ./$Subdir/noarch
 
 done
 #cd ..
