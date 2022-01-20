@@ -3,7 +3,7 @@ echo "owner is $1"
 echo "tag is $2"
 #owner = $1
 #tag = $2
-#cd ./temp_dir
+cd ./temp_dir
 #garbage =
 echo "ls -al ./temp_dir before running conda index"
 ls -al
