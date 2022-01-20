@@ -21,6 +21,12 @@ do
     if [ -d "$subdir" ] && test -f "$subdir/repodata.json"
     then
         # $f is a directory
+        if [ $subdir =="noarch" ] && [ $3 == "no" ]
+        then
+            echo "noarch not downloaded"
+            continue
+        fi
+
         echo "ls -al ./$subdir"
         ls -al ./$subdir
         echo "cating ./$subdir/repodata.json"

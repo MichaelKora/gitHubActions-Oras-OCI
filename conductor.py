@@ -11,7 +11,7 @@ from functions import *
 
 #argument: github Owner
 owner = sys.argv[1]
-
+list_of_dirs = []
 #shell script to create the needed file structure for conda_index
 subprocess.run("chmod +x ./conda_index_create.sh", shell=True )
 
@@ -51,8 +51,10 @@ for entry in input_data:
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
         if (os.path.isdir(f"./temp_dir/{subdir}") == False):
+
             logging.warning(f"Subdir <<{subdir}>> does not exist...Creating a new subdir in filesystem...>>")
             subprocess.run(f"mkdir ./temp_dir/{subdir}", shell=True)
+            list_of_dirs.append(subdir)
         urllib.request.urlretrieve(pkgLink, f"./temp_dir/{subdir}/{pkg}")
 #        urllib.request.urlretrieve(pkgLink, filename=pkg)
 
@@ -86,11 +88,14 @@ now = datetime.now()
 #shell script that actually run the conda index command
 #subprocess.run("chmod +x ./run_conda_index.sh", shell=True )
 
-json_tag = dt_string = now.strftime("%d.%m.%Y-%H.%M.%S")
-subprocess.run(f"./run_conda_index.sh {owner} {json_tag}", shell=True)
+noarch_needed = "no"
+if 'noarch' in list_of_dirs :
+    print("Yes,  package <noarch> exists : " , list_of_dirs)
+    noarch_needed = "yes"
+
+#json_tag=""
+now = datetime.now()
+json_tag = now.strftime("%d.%m.%Y-%H.%M.%S")
+subprocess.run(f"./run_conda_index.sh {owner} {json_tag} {noarch_needed}", shell=True)
 
 logging.warning(f" All repodata.json files uploaded !!!>>")
-
-
-    # delete bz2 and temp_dir
-#    subprocess.run("./deletefiles.sh", shell=True)
