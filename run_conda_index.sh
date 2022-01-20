@@ -4,7 +4,7 @@ echo "tag is $2"
 #owner = $1
 #tag = $2
 #cd ./temp_dir
-garbage =
+#garbage =
 echo "ls -al ./temp_dir before running conda index"
 ls -al
 
