@@ -15,9 +15,6 @@ owner = sys.argv[1]
 #shell script to create the needed file structure for conda_index
 subprocess.run("chmod +x ./conda_index_create.sh", shell=True )
 
-#shell script that actually run the conda index command
-subprocess.run("chmod +x ./run_conda_index.sh", shell=True )
-
 #delete files after running it
 subprocess.run("chmod +x ./deletefiles.sh", shell=True)
 
@@ -54,6 +51,7 @@ for entry in input_data:
         pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
         if (os.path.isdir(f"./temp_dir/{subdir}") == False):
+            logging.warning(f"Subdir <<{subdir}>> does not exist...Creating a new subdir in filesystem...>>")
             subprocess.run(f"mkdir ./temp_dir/{subdir}", shell=True)
         urllib.request.urlretrieve(pkgLink, f"./temp_dir/{subdir}/{pkg}")
 #        urllib.request.urlretrieve(pkgLink, filename=pkg)
@@ -68,9 +66,9 @@ for entry in input_data:
         logging.warning(f"The current tag is: <<{tag_resized}>>")
 
         # upload the tar_bz2 file to the right url
-        push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}/{name}:{tag_resized} ./{pkg}:application/octet-stream"
+        push_bz2 = f"oras push ghcr.io/{owner}/samples/{subdir}/{name}:{tag_resized} ./temp_dir/{subdir}/{pkg}:application/octet-stream"
         upload_url = f"ghcr.io/{owner}/samples/{subdir}/{name}:{tag_resized}"
-        logging.warning(f"Uploading <<{pkg}>> to link: <<{upload_url}>>")
+        logging.warning(f"Uploading <<{pkg}>> (from dir: << ./temp_dir/{subdir}/ >> to link: <<{upload_url}>>")
         subprocess.run(push_bz2, shell=True)
         logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
 
@@ -84,8 +82,12 @@ logging.warning(f"Uploading all repodata.json files to...")
 #subprocess.run(push_json, shell=True)
 
 now = datetime.now()
+
+#shell script that actually run the conda index command
+#subprocess.run("chmod +x ./run_conda_index.sh", shell=True )
+
 json_tag = dt_string = now.strftime("%d.%m.%Y-%H.%M.%S")
-subprocess.run(f"./deletefiles.sh {owner} {json_tag}", shell=True)
+subprocess.run(f"./run_conda_index.sh {owner} {json_tag}", shell=True)
 
 logging.warning(f" All repodata.json files uploaded !!!>>")
 
