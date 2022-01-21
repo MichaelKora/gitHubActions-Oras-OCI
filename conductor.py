@@ -34,7 +34,7 @@ with open("current_state.json", "r") as read_file:
 
 
 #go through entire set of entries in the input_data.json file
-for entry in input_data:
+for entry in input_data_json:
     chanel = entry["chanel"]
     subdir = entry["subdir"]
 
