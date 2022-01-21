@@ -95,14 +95,22 @@ for entry in input_data_json:
             logging.warning(f"Uploading <<{pkg}>> (from dir: << ./temp_dir/{subdir}/ >> to link: <<{upload_url}>>")
             subprocess.run(push_bz2, shell=True)
             logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
-            #add the upoaded packet in my local tracker
-            already_uploaded_pkgs[subdir].append(new_pkg)
+            #create new entry
+            already_uploaded_pkgs[subdir]=(new_pkg)
+
 
     if subdir_already_exists:
     #pull latest version of the repodata
+
         pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
     #oras pull ghcr.io/michaelkora/samples/linux-aarch64/repodata.json:20.01.2022-11.18.59 -t "application/json"
         subprocess.run(pull_repo, shell=True)
+        #add the upoaded packet in my local tracker
+        already_uploaded_pkgs[subdir].append(new_pkg)
+
+#persist newpkg into my tracker
+with open("current_state.json", "w") as write_file:
+    json.dump(already_uploaded_pkgs, write_file)
 
 #rename all the downloaded repodata before creating new ones with << conda index >>
 logging.warning(f"renaming old repo...")
