@@ -22,7 +22,6 @@ pkgname = ""
 oldLink = ""
 last_link = ""
 latest_mirror_json = ""
-#latest_packages = {}
 
 #import json files
 with open("input_file.json", "r") as read_file:
@@ -110,10 +109,6 @@ for entry in input_data_json:
                 already_uploaded_pkgs[subdir]=(pkg)
 
 
-#persist newpkg into my tracker
-#with open("current_state.json", "w") as write_file:
-#    json.dump(already_uploaded_pkgs, write_file)
-
 #rename all the downloaded repodata before creating new ones with << conda index >>
 logging.warning(f"renaming old repo...")
 subprocess.run("./rename_new_repo_files.sh", shell=True)
@@ -163,7 +158,6 @@ for some_dir in os.listdir(dir):
 
 logging.warning(f"Uploading all repodata.json files...")
 
-#json_tag=""
 now = datetime.now()
 json_tag = now.strftime("%d%m%Y%H%M%S")
 subprocess.run(f"./upload_repodataFiles.sh {owner} {json_tag}", shell=True)
