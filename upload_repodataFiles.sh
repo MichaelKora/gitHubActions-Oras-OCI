@@ -15,7 +15,7 @@ do
         cat ./$subdir/repodata.json
         echo "uploading repodata <<./temp_dir/$subdir/repodata.json>> to ghcr.io/$1/samples/$subdir/repodata.json:$2"
         oras push ghcr.io/$1/samples/$subdir/repodata.json:$2 ./$subdir/repodata.json:application/json
-        echo "repo data of $subdir uploaded"
+        echo "repo data of $subdir uploaded version: <$2>"
 
 
         echo "uploading the same file this time using the latest tag"
