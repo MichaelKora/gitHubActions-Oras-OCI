@@ -44,7 +44,7 @@ for entry in input_data_json:
         repodata_exists = False
 
     if repodata_exists:
-        with open(f".temp_dir/{subdir}/repodata.json", "r") as read_file:
+        with open(f"./temp_dir/{subdir}/repodata.json", "r") as read_file:
             current_repodata = json.load(read_file)
         for key_pkg in current_repodata["packages"].keys:
             if key_pkg in already_uploaded_pkgs.keys():
