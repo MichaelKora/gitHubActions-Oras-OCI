@@ -36,7 +36,7 @@ for entry in input_data_json:
     subdir = entry["subdir"]
 
     repodata_exists = True
-    pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
+    pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" "
     logging.warning(f"cmd {pull_repo} ")
     result = subprocess.run(pull_repo, shell=True)
 
