@@ -4,6 +4,7 @@ import sys
 import subprocess
 import logging
 import os
+import stat
 from datetime import datetime
 
 import urllib.request
@@ -14,10 +15,13 @@ owner = sys.argv[1]
 list_of_dirs = []
 #subprocess.run("mkdir temp_dir", shell=True)
 os.mkdir("temp_dir")
-subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
-subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
+os.chmod("./rename_new_repo_files.sh", stat.S_IXUSR)
+os.chmod("./upload_repodataFiles.sh", stat.S_IXUSR)
 
-chanel = ""
+#subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
+#subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
+
+channel = ""
 subdir = ""
 pkgname = ""
 oldLink = ""
@@ -32,7 +36,7 @@ already_uploaded_pkgs = {}
 
 #go through entire set of entries in the input_data.json file
 for entry in input_data_json:
-    chanel = entry["chanel"]
+    channel = entry["channel"]
     subdir = entry["subdir"]
 
     repodata_exists = True
@@ -56,7 +60,7 @@ for entry in input_data_json:
 #see if there is already something on the registry that can pulled
     subdir_already_exists = True
 
-    newLink = f"https://conda.anaconda.org/{chanel}/{subdir}/repodata.json"
+    newLink = f"https://conda.anaconda.org/{channel}/{subdir}/repodata.json"
     downloaded_repodata_dic = downloadFile(oldLink, newLink)
     pkgname = entry ["package"]
 
@@ -64,7 +68,7 @@ for entry in input_data_json:
 
 
     #subdir has some pkgs already downloaded the last time
-    if subdir in already_uploaded_pkgs.keys():
+    if subdir in already_uploaded_pkgs:
         last_uploaded_pkgs_for_subdir = set (already_uploaded_pkgs[subdir])
         new_packages_set = found_packages - last_uploaded_pkgs_for_subdir
 
@@ -79,7 +83,7 @@ for entry in input_data_json:
 
         for pkg in new_packages_set:
             #donwload package
-            pkgLink = f"https://conda.anaconda.org/{chanel}/{subdir}/{pkg}"
+            pkgLink = f"https://conda.anaconda.org/{channel}/{subdir}/{pkg}"
             logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
             if (os.path.isdir(f"./temp_dir/{subdir}") == False):
                 logging.warning(f"Subdir <<{subdir}>> does not exist...Creating a new subdir in filesystem...>>")
