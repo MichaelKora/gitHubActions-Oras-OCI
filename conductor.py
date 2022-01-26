@@ -29,14 +29,32 @@ latest_mirror_json = ""
 with open("input_file.json", "r") as read_file:
     input_data_json = json.load(read_file)
 
-with open("current_state.json", "r") as read_file:
-    already_uploaded_pkgs = json.load(read_file)
-
+already_uploaded_pkgs = {}
+#with open("current_state.json", "r") as read_file:
+#    already_uploaded_pkgs = json.load(read_file)
 
 #go through entire set of entries in the input_data.json file
 for entry in input_data_json:
     chanel = entry["chanel"]
     subdir = entry["subdir"]
+
+    repodata_exists = True
+    pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
+    result = subprocess.run(pull_repo, shell=True)
+
+    repodata_exists = True
+    if result.returncode != 0:
+        repodata_exists = False
+
+    if repodata_exists:
+        with open(f".temp_dir/{subdir}/repodata.json", "r") as read_file:
+            current_repodata = json.load(read_file)
+        for key_pkg in current_repodata["packages"].keys:
+            if key_pkg in already_uploaded_pkgs.keys():
+                already_uploaded_pkgs[subdir].append(key_pkg)
+            else:
+                already_uploaded_pkgs[subdir] = []
+                already_uploaded_pkgs[subdir].append(key_pkg)
 
 #see if there is already something on the registry that can pulled
     subdir_already_exists = True
@@ -59,7 +77,6 @@ for entry in input_data_json:
     #the subdir is new and havent been uploaded the last time
     else:
         new_packages_set = found_packages
-        subdir_already_exists = False
 
     if not len(new_packages_set):
         logging.warning(f"no new packages for {subdir} ")
@@ -97,16 +114,16 @@ for entry in input_data_json:
             logging.warning(f"Package <<{pkg}>> uploaded to: <<{upload_url}>>")
 
             #add pkg to my tracker
-            if subdir_already_exists:
+            if repodata_exists:
                 already_uploaded_pkgs[subdir].append(pkg)
             else:
                 already_uploaded_pkgs[subdir]=(pkg)
 
-    if subdir_already_exists:
+    ###if subdir_already_exists:
     #pull latest version of the repodata
-        pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
+        ###pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
     #oras pull ghcr.io/michaelkora/samples/linux-aarch64/repodata.json:20.01.2022-11.18.59 -t "application/json"
-        subprocess.run(pull_repo, shell=True)
+        ###subprocess.run(pull_repo, shell=True)
         #add the upoaded packet in my local tracker
 #        already_uploaded_pkgs[subdir]=(pkg)
 #    else:
@@ -134,8 +151,8 @@ for some_dir in os.listdir(dir):
     if (os.path.isdir(some_dir) == True):
         # go only through directories
 
-        f = os.path.join(directory, filename, old_repodata_filename)
-        fnew = os.path.join(directory, filename, new_repodata)
+        f = os.path.join(dir, some_dir, old_repodata_filename)
+        fnew = os.path.join(dir, some_dir, new_repodata)
 
 
         if os.path.isfile(fnew) and os.path.isfile(f):
@@ -156,7 +173,7 @@ for some_dir in os.listdir(dir):
             with open(fnew, "r") as read_file:
                 latest_mirror_json = json.load(read_file)
 
-        with open("repodata.json", "w") as write_file:
+        with open(fnew) as write_file:
             json.dump(latest_mirror_json, write_file)
 
 
@@ -164,14 +181,14 @@ for some_dir in os.listdir(dir):
 
 
 logging.warning(f"Uploading all repodata.json files...")
-noarch_needed = "no"
-if 'noarch' in list_of_dirs :
-    print("Yes,  package <noarch> exists : " , list_of_dirs)
-    noarch_needed = "yes"
+#noarch_needed = "no"
+#if 'noarch' in list_of_dirs :
+#    print("Yes,  package <noarch> exists : " , list_of_dirs)
+#    noarch_needed = "yes"
 
 #json_tag=""
 now = datetime.now()
 json_tag = now.strftime("%d%m%Y%H%M%S")
-subprocess.run(f"./run_conda_index.sh {owner} {json_tag} {noarch_needed}", shell=True)
+subprocess.run(f"./upload_repodataFiles.sh {owner} {json_tag}", shell=True)
 
 logging.warning(f" All repodata.json files uploaded !!!>>")

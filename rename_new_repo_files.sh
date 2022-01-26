@@ -1,4 +1,5 @@
 #!/bin/bash
+
 file="repodata.json"
 newName="old_repodata.json"
 for subdir in ./temp_dir/*

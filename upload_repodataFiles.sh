@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd ./temp_dir
 latest = "latest"
 for subdir in *
