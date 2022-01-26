@@ -4,7 +4,7 @@ import sys
 import subprocess
 import logging
 import os
-import stat
+#import stat
 from datetime import datetime
 
 import urllib.request
@@ -15,8 +15,8 @@ owner = sys.argv[1]
 list_of_dirs = []
 #subprocess.run("mkdir temp_dir", shell=True)
 os.mkdir("temp_dir")
-os.chmod("./rename_new_repo_files.sh", stat.S_IXOTH)
-os.chmod("./upload_repodataFiles.sh", stat.S_IXOTH)
+os.chmod("./rename_new_repo_files.sh", 0o777)
+os.chmod("./upload_repodataFiles.sh", 0o777)
 
 #subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
 #subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
