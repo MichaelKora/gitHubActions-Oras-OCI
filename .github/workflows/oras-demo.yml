@@ -1,9 +1,9 @@
 name: Create Oras event after each git push
 
-#on: [ push ]
-on:
-    schedule:
-        - cron: '*/30 * * * *'
+on: [ push ]
+#on:
+#    schedule:
+#        - cron: '*/30 * * * *'
 
 permissions:
   contents: read
@@ -22,6 +22,8 @@ jobs:
       GITHUB_OWNER: ${{ github.actor }}
     steps:
       - uses: actions/checkout@v2
+        with:
+            ref: main
 
       - name: install mamba
         uses: mamba-org/provision-with-micromamba@main
