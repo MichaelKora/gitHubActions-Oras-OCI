@@ -1,5 +1,6 @@
 import json
 import urllib.request
+import os
 
 #download the repodata.json file only if its a new one
 def downloadFile (oldLink, newLink):
@@ -23,3 +24,19 @@ def findPackages (input_data, pkg):
             found_packages.append(key)
 
     return found_packages
+
+def upload_repodataFiles(owner, tag):
+    latest= "latest"
+    for subdir in os.listdir("temp_dir"):
+        repodata = os.path.join("temp_dir", subdir, "repodata.json")
+        if os.path.isdir(subdir) and os.path.isfile(repodata):
+            upload_cmd = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag} {repodata}:application/json"
+            upload_cmd_latest = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{latest} {repodata}:application/json"
+
+            logging.warning(f"Uploading repodata to <<ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag}>> ")
+            subprocess.run(upload_cmd, shell=True)
+            logging.warning("uploaded")
+
+            logging.warning(f"Uploading the same repo with the tag <latest>")
+            subprocess.run(upload_cmd_latest, shell=True)
+            logging.warning("uploaded")

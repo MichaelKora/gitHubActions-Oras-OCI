@@ -4,7 +4,6 @@ import sys
 import subprocess
 import logging
 import os
-#import stat
 from datetime import datetime
 
 import urllib.request
@@ -17,9 +16,6 @@ list_of_dirs = []
 os.mkdir("temp_dir")
 os.chmod("./rename_new_repo_files.sh", 0o777)
 os.chmod("./upload_repodataFiles.sh", 0o777)
-
-#subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
-#subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
 
 channel = ""
 subdir = ""
@@ -163,6 +159,7 @@ logging.warning(f"Uploading all repodata.json files...")
 
 now = datetime.now()
 json_tag = now.strftime("%d%m%Y%H%M%S")
-subprocess.run(f"./upload_repodataFiles.sh {owner} {json_tag}", shell=True)
+upload_repodataFiles (owner, json_tag)
+#subprocess.run(f"./upload_repodataFiles.sh {owner} {json_tag}", shell=True)
 
 logging.warning(f" All repodata.json files uploaded !!!>>")
