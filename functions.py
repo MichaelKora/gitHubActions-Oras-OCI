@@ -27,6 +27,7 @@ def findPackages (input_data, pkg):
 
 def upload_repodataFiles(owner, tag):
     latest= "latest"
+    subprocess.run("ls -al", shell=True)
     for subdir in os.listdir("temp_dir"):
         repodata = os.path.join("temp_dir", subdir, "repodata.json")
         if os.path.isdir(subdir) and os.path.isfile(repodata):
