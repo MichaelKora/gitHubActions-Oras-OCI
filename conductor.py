@@ -46,8 +46,8 @@ for entry in input_data_json:
     if repodata_exists:
         subprocess.run("pwd", shell=True)
         subprocess.run(f"ls -al", shell=True)
-        subprocess.run(f"ls -al ./temp_dir/{subdir}", shell=True)
         subprocess.run(f"ls -al ./temp_dir", shell=True)
+        subprocess.run(f"ls -al ./temp_dir/{subdir}", shell=True)
         with open(f"./temp_dir/{subdir}/repodata.json", "r") as read_file:
             current_repodata = json.load(read_file)
         for key_pkg in current_repodata["packages"]:
