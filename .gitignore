@@ -3,8 +3,5 @@
 *.swo
 *.swp
 test.py
-run_conda_index.sh
-current_state.json
-deletefiles.sh
-conda_index_prep.sh
 conda-forge_xtensor_files
+*.sh
