@@ -15,8 +15,8 @@ owner = sys.argv[1]
 list_of_dirs = []
 #subprocess.run("mkdir temp_dir", shell=True)
 os.mkdir("temp_dir")
-os.chmod("./rename_new_repo_files.sh", stat.S_IXUSR)
-os.chmod("./upload_repodataFiles.sh", stat.S_IXUSR)
+os.chmod("./rename_new_repo_files.sh", stat.S_IXOTH)
+os.chmod("./upload_repodataFiles.sh", stat.S_IXOTH)
 
 #subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
 #subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
@@ -50,8 +50,8 @@ for entry in input_data_json:
     if repodata_exists:
         with open(f"./temp_dir/{subdir}/repodata.json", "r") as read_file:
             current_repodata = json.load(read_file)
-        for key_pkg in current_repodata["packages"].keys():
-            if key_pkg in already_uploaded_pkgs.keys():
+        for key_pkg in current_repodata["packages"]:
+            if key_pkg in already_uploaded_pkgs:
                 already_uploaded_pkgs[subdir].append(key_pkg)
             else:
                 already_uploaded_pkgs[subdir] = []
@@ -144,7 +144,7 @@ for some_dir in os.listdir(dir):
                 old_version_json = json.load(read_file)
             with open(fnew, "r") as read_file:
                 newLocal_version_json = json.load(read_file)
-            for new_pkg in newLocal_version_json["packages"].keys():
+            for new_pkg in newLocal_version_json["packages"]:
                 old_version_json["packages"][new_pkg] = newLocal_version_json["packages"][new_pkg]
 
             latest_mirror_json = old_version_json
