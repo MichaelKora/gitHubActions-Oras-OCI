@@ -40,8 +40,8 @@ def upload_repodataFiles(owner, tag):
         print(f"current file: {repodata}")
 
         if os.path.isdir(path_subdir) and os.path.isfile(repodata):
-            upload_cmd = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag} {repodata}:application/json"
-            upload_cmd_latest = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{latest} {repodata}:application/json"
+            upload_cmd = f"oras push ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag} {repodata}:application/json"
+            upload_cmd_latest = f"oras push ghcr.io/{owner}/samples/{subdir}/repodata.json:{latest} {repodata}:application/json"
 
             logging.warning(f"Uploading repodata to <<ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag}>> ")
             subprocess.run(upload_cmd, shell=True)
