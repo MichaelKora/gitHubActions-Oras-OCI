@@ -2,6 +2,7 @@ import json
 import subprocess
 import urllib.request
 import os
+import logging
 
 #download the repodata.json file only if its a new one
 def downloadFile (oldLink, newLink):
