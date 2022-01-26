@@ -7,14 +7,14 @@ class Manager:
         self.subdir = ""
         self.pkg = ""
 
-    def resetValues(channel,subdir):
+    def resetValues(self, channel,subdir):
         self.channel = channel
         self.subdir = subdir
 
-    def resetPkg(pkg):
+    def resetPkg(self, pkg):
         self.pkg = pkg
 
-    def downloadbz2 ():
+    def downloadbz2 (self):
         #donwload package
         pkgLink = f"https://conda.anaconda.org/{self.channel}/{self.subdir}/{self.pkg}"
         logging.warning(f"Downloading the tar.bz2 file from {pkgLink}")
@@ -24,7 +24,7 @@ class Manager:
             list_of_dirs.append(self.subdir)
         urllib.request.urlretrieve(pkgLink, f"./temp_dir/{self.subdir}/{self.pkg}")
 
-    def push_pkg():
+    def push_pkg(self):
         #get name, version and hash (tag = version + hash(without .tar.bz2 extension))
         name, version, hash = self.pkg.rsplit('-', 2)
         tag = version + "-" + hash
@@ -41,7 +41,7 @@ class Manager:
         subprocess.run(push_bz2, shell=True)
         logging.warning(f"Package <<{self.pkg}>> uploaded to: <<{upload_url}>>")
 
-    def prepare():
+    def prepare(self):
         #rename all the downloaded repodata before creating new ones with << conda index >>
         logging.warning(f"renaming old repo...")
         #subprocess.run("./rename_new_repo_files.sh", shell=True)
@@ -50,7 +50,7 @@ class Manager:
         logging.warning(f"build new foud files...")
         subprocess.run("conda index ./temp_dir", shell=True)
 
-    def push_repodata():
+    def push_repodata(self):
         # iterate over updated subdirs
         dir="temp_dir"
         old_repodata_filename="old_repodata.json"
