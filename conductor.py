@@ -13,8 +13,6 @@ from functions import *
 owner = sys.argv[1]
 list_of_dirs = []
 subprocess.run("mkdir temp_dir", shell=True)
-#subprocess.run("chmod +x ./conda_index_create.sh", shell=True )
-subprocess.run("chmod +x ./run_conda_index.sh", shell=True)
 subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
 subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
 
@@ -31,8 +29,6 @@ with open("input_file.json", "r") as read_file:
     input_data_json = json.load(read_file)
 
 already_uploaded_pkgs = {}
-#with open("current_state.json", "r") as read_file:
-#    already_uploaded_pkgs = json.load(read_file)
 
 #go through entire set of entries in the input_data.json file
 for entry in input_data_json:
@@ -59,12 +55,9 @@ for entry in input_data_json:
 
 #see if there is already something on the registry that can pulled
     subdir_already_exists = True
-    #get packages of this subdir which are already uploaded
-# uploaded_pkg = already_uploaded_pkgs[subdir]
 
     newLink = f"https://conda.anaconda.org/{chanel}/{subdir}/repodata.json"
     downloaded_repodata_dic = downloadFile(oldLink, newLink)
-
     pkgname = entry ["package"]
 
     found_packages = set (findPackages(downloaded_repodata_dic, pkgname))
@@ -83,10 +76,6 @@ for entry in input_data_json:
         logging.warning(f"no new packages for {subdir} ")
     else:
         logging.warning(f"new packages found for {subdir}")
-
-        #for new_pkg in new_packages_set:
-        #    already_uploaded_pkgs[subdir].append(new_pkg)
-
 
         for pkg in new_packages_set:
             #donwload package
@@ -120,19 +109,10 @@ for entry in input_data_json:
             else:
                 already_uploaded_pkgs[subdir]=(pkg)
 
-    ###if subdir_already_exists:
-    #pull latest version of the repodata
-        ###pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
-    #oras pull ghcr.io/michaelkora/samples/linux-aarch64/repodata.json:20.01.2022-11.18.59 -t "application/json"
-        ###subprocess.run(pull_repo, shell=True)
-        #add the upoaded packet in my local tracker
-#        already_uploaded_pkgs[subdir]=(pkg)
-#    else:
-#        already_uploaded_pkgs[subdir].append(pkg)
 
 #persist newpkg into my tracker
-with open("current_state.json", "w") as write_file:
-    json.dump(already_uploaded_pkgs, write_file)
+#with open("current_state.json", "w") as write_file:
+#    json.dump(already_uploaded_pkgs, write_file)
 
 #rename all the downloaded repodata before creating new ones with << conda index >>
 logging.warning(f"renaming old repo...")
@@ -182,10 +162,6 @@ for some_dir in os.listdir(dir):
 
 
 logging.warning(f"Uploading all repodata.json files...")
-#noarch_needed = "no"
-#if 'noarch' in list_of_dirs :
-#    print("Yes,  package <noarch> exists : " , list_of_dirs)
-#    noarch_needed = "yes"
 
 #json_tag=""
 now = datetime.now()

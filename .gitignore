@@ -3,3 +3,4 @@
 *.swo
 *.swp
 test.py
+run_conda_index.sh
