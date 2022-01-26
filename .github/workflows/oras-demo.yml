@@ -22,6 +22,7 @@ jobs:
       GITHUB_OWNER: ${{ github.actor }}
     steps:
       - run: ls -al
+      - run: pwd
       - uses: actions/checkout@v2
         with:
             ref: main
