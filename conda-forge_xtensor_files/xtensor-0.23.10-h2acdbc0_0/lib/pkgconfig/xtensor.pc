@@ -1,8 +1,0 @@
-prefix=/home/conda/feedstock_root/build_artifacts/xtensor_1621857248190/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pla
-libdir=${prefix}/lib
-includedir=${prefix}/include
-
-Name: xtensor
-Description: xtensor is a C++ library meant for numerical analysis with multi-dimensional array expressions.
-Version: 0.23.10
-Cflags: -I${includedir}
