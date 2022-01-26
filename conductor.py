@@ -16,6 +16,7 @@ subprocess.run("mkdir temp_dir", shell=True)
 subprocess.run("chmod +x ./conda_index_create.sh", shell=True )
 subprocess.run("chmod +x ./run_conda_index.sh", shell=True)
 subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
+subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
 
 chanel = ""
 subdir = ""
