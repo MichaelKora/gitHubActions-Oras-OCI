@@ -23,10 +23,3 @@ def findPackages (input_data, pkg):
             found_packages.append(key)
 
     return found_packages
-
-def compare2Lists ( newList, oldList):
-    result = []
-    for item in newList:
-        if item not in oldList:
-            result.append(item)
-    return result

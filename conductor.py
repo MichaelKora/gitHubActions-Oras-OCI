@@ -12,7 +12,8 @@ from functions import *
 #initializations & make files executable
 owner = sys.argv[1]
 list_of_dirs = []
-subprocess.run("mkdir temp_dir", shell=True)
+#subprocess.run("mkdir temp_dir", shell=True)
+os.mkdir("temp_dir")
 subprocess.run("chmod +x ./rename_new_repo_files.sh", shell=True)
 subprocess.run("chmod +x ./upload_repodataFiles.sh", shell=True)
 
