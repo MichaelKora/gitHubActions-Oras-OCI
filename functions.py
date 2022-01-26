@@ -34,10 +34,11 @@ def upload_repodataFiles(owner, tag):
     for subdir in os.listdir("./temp_dir"):
 
         repodata = os.path.join("./temp_dir", subdir, "repodata.json")
+        path_subdir = os.path.join("./temp_dir", subdir)
         subprocess.run("pwd", shell=True)
         print(f"current file: {repodata}")
 
-        if os.path.isdir(subdir) and os.path.isfile(repodata):
+        if os.path.isdir(path_subdir) and os.path.isfile(repodata):
             upload_cmd = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag} {repodata}:application/json"
             upload_cmd_latest = f"push ghcr.io/{owner}/samples/{subdir}/repodata.json:{latest} {repodata}:application/json"
 
