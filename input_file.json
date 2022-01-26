@@ -1,11 +1,11 @@
 [
     {
-        "chanel": "robostack-experimental",
+        "channel": "robostack-experimental",
         "subdir": "linux-aarch64",
         "package": "ros-galactic-launch"
     },
     {
-        "chanel": "robostack-experimental",
+        "channel": "robostack-experimental",
         "subdir": "osx-arm64",
         "package": "ros-galactic-sensor-msgs"
     }
