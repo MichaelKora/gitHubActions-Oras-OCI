@@ -14,8 +14,8 @@ owner = sys.argv[1]
 list_of_dirs = []
 #subprocess.run("mkdir temp_dir", shell=True)
 os.mkdir("temp_dir")
-os.chmod("./rename_new_repo_files.sh", 0o777)
-os.chmod("./upload_repodataFiles.sh", 0o777)
+#os.chmod("./rename_new_repo_files.sh", 0o777)
+#os.chmod("./upload_repodataFiles.sh", 0o777)
 
 channel = ""
 subdir = ""
@@ -112,8 +112,8 @@ for entry in input_data_json:
 
 #rename all the downloaded repodata before creating new ones with << conda index >>
 logging.warning(f"renaming old repo...")
-subprocess.run("./rename_new_repo_files.sh", shell=True)
-
+#subprocess.run("./rename_new_repo_files.sh", shell=True)
+rename_new_repo_files()
 #run conda index to generate all new repodata.file
 logging.warning(f"build new foud files...")
 subprocess.run("conda index ./temp_dir", shell=True)

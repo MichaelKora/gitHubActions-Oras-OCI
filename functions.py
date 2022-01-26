@@ -30,14 +30,10 @@ def findPackages (input_data, pkg):
 def upload_repodataFiles(owner, tag):
 
     latest= "latest"
-    subprocess.run("pwd", shell=True)
-    subprocess.run("ls -al", shell=True)
     for subdir in os.listdir("./temp_dir"):
 
         repodata = os.path.join("./temp_dir", subdir, "repodata.json")
         path_subdir = os.path.join("./temp_dir", subdir)
-        subprocess.run("pwd", shell=True)
-        print(f"current file: {repodata}")
 
         if os.path.isdir(path_subdir) and os.path.isfile(repodata):
             upload_cmd = f"oras push ghcr.io/{owner}/samples/{subdir}/repodata.json:{tag} {repodata}:application/json"
@@ -50,3 +46,13 @@ def upload_repodataFiles(owner, tag):
             logging.warning(f"Uploading the same repo with the tag <latest>")
             subprocess.run(upload_cmd_latest, shell=True)
             logging.warning("uploaded")
+
+
+def rename_new_repo_files():
+    file = "repodata.json"
+    newName = "old_repodata.json"
+    for subdir in os.listdir("./temp_dir"):
+        repodata = os.path.join("./temp_dir", subdir, file)
+        renamedFile = os.path.join("./temp_dir", subdir, newName)
+        if os.path.isfile(repodata):
+            os.rename (repodata, renamedFile)
