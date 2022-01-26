@@ -1,12 +1,11 @@
-import json
-import urllib.request
+#import json
+#import urllib.request
 import sys
-import subprocess
-import logging
-import os
-from datetime import datetime
-import urllib.request
-from functions import *
+#import subprocess
+#import logging
+#import os
+#import urllib.request
+#from functions import *
 from manager import *
 #initializations
 owner = sys.argv[1]
