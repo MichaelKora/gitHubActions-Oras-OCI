@@ -39,12 +39,11 @@ for entry in input_data_json:
     pull_repo = f"oras pull ghcr.io/{owner}/samples/{subdir}/repodata.json:latest -t \"application/json\" -o ./temp_dir"
     result = subprocess.run(pull_repo, shell=True)
 
-    repodata_exists = True
     if result.returncode != 0:
         repodata_exists = False
 
     if repodata_exists:
-        with open(f"temp_dir/{subdir}/repodata.json", "r") as read_file:
+        with open(f"./temp_dir/{subdir}/repodata.json", "r") as read_file:
             current_repodata = json.load(read_file)
         for key_pkg in current_repodata["packages"]:
             if key_pkg in already_uploaded_pkgs:
