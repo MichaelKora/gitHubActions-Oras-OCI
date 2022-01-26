@@ -1,6 +1,9 @@
 name: Create Oras event after each git push
 
-on: [ push ]
+#on: [ push ]
+on:
+    schedule:
+        - cron: '*/30 * * * *'
 
 permissions:
   contents: read

@@ -154,8 +154,6 @@ for some_dir in os.listdir(dir):
 
 
 
-
-
 logging.warning(f"Uploading all repodata.json files...")
 
 now = datetime.now()
