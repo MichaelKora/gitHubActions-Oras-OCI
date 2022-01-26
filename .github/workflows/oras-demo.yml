@@ -21,11 +21,11 @@ jobs:
     env:
       GITHUB_OWNER: ${{ github.actor }}
     steps:
-      - run: ls -al
-      - run: pwd
       - uses: actions/checkout@v2
         with:
             ref: main
+      - run: ls -al
+      - run: pwd
 
       - name: install mamba
         uses: mamba-org/provision-with-micromamba@main
